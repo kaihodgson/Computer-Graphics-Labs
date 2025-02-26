@@ -119,6 +119,16 @@ int main( void )
     unsigned int textureID;
     textureID = glGetUniformLocation(shaderID, "texture");
     glUniform1i(textureID, 0);
+
+    // Define the translation matrix
+    glm::mat4 translate;
+    translate[3][0] = 0.4f, translate[3][1] = 0.3f, translate[3][2] = 0.0f;
+
+    // Send the transformation matrix to the shader
+    glm::mat4 transformation = translate;
+    unsigned int transformationID;
+    transformationID = glGetUniformLocation(shaderID, "transformation");
+    glUniformMatrix4fv(transformationID, 1, GL_FALSE, &transformation[0][0]);
     
     // Render loop
     while (!glfwWindowShouldClose(window))
